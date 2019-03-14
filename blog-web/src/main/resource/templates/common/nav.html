@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head/>
+<body>
+<nav th:fragment="nav">
+    <div class="nav-wrapper black">
+        <a th:href="@{/}" class="brand-logo center" th:text="#{view.title}">Blog</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        </ul>
+    </div>
+    <!--<form method="POST" th:action="@{/logout}" id="logoutForm">-->
+          <!--<span sec:authentication="principal.fullname"-->
+                <!--sec:authorize="isAuthenticated()">USERNAME</span>-->
+        <!--<input type="submit" value="Logout"/>-->
+    <!--</form>-->
+    <!--<a th:href="@{/logout}">Sass</a>-->
+</nav>
+</body>
+</html>

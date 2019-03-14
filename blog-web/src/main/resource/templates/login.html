@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head::head">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+  
+  <body id="body">
+    <nav th:replace="common/nav::nav"/>
+    <main>
+      <div th:if="${error}">
+        Unable to login. Check your username and password.
+      </div>
+
+      <div class="row">
+        <div class="col s6 offset-s3">
+          <!--<p>New here? Click-->
+            <!--<a th:href="@{/register}">here</a> to register.</p>-->
+        </div>
+      </div>
+
+      <div class="row center-align">
+        <form method="POST" th:action="@{/login}" id="loginForm" class="col s12">
+          <div class="row">
+            <div class="input-field col s6 offset-s3">
+              <input placeholder="username" id="username" type="text" name="username"  oninput="filter(this)">
+              <label for="username">username</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6 offset-s3">
+              <input placeholder="password" id="password" type="password" name="password"  oninput="filter(this)">
+              <label for="password">password</label>
+            </div>
+          </div>
+          <button class="btn waves-effect waves-light black" type="submit">Login
+          </button>
+        </form>
+      </div>
+    </main>
+    <div id="footer" th:replace="common/footer::footer">
+      com.hengyh
+    </div>
+  </body>
+</html>

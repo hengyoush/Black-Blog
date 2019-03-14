@@ -1,0 +1,7 @@
+view:
+  maxPagenation: 5
+  perPageSize: 10
+  articlesSortBy : createAt
+file:
+  upload:
+    tempLocation: \fileupload\image

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="common/head::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body id="body">
+
+<nav th:replace="common/nav::nav"/>
+<main>
+    <div class="container">
+        <form th:method="GET" th:action="@{/admin/article/search}" id="tacoForm">
+            <div class="input-field col s12" id="search">
+                <i class="mdi-action-search prefix"></i>
+                <input id="icon_prefix" type="text" oninput="filter(this)" name="keyword"/>
+                <label for="icon_prefix" class="grey-text">搜索</label>
+                <input type="submit" hidden="hidden">
+            </div>
+        </form>
+
+        <ul class="collection" th:each="article : ${articles}">
+            <a class="collection-item" th:text="${article.title}" th:href="@{'/admin/article/' + ${article.id}}"></a>
+        </ul>
+
+        <div th:replace="common/pageNavigation::pageNav(${articles},${pageNums},'←','→','admin/article','&keyword='+${keyword})"></div>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large black" th:href="@{/admin/article/new-article}">
+            <i class="material-icons">+</i>
+        </a>
+    </div>
+</main>
+<div id="footer" th:replace="common/footer::footer">
+    com.hengyh
+</div>
+</body>
+</html>

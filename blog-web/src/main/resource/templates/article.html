@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/materialize.min.css}"  media="screen,projection"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/editor.css}" />
+    <link rel="stylesheet" th:href="@{/css/editormd.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+        .editormd-preview-container, .editormd-html-preview{
+            background-color: rgba(64, 63, 65, 0.93);
+        }
+        .card{
+            background-color: rgba(64, 63, 65, 0.93);
+        }
+        .divider{
+            background-color: rgba(92, 92, 92, 1);
+        }
+        .markdown-body {
+            color: rgba(161, 161, 161, 1) ;
+        }
+        .black-text{
+            color:rgba(161, 161, 161, 1) !important;
+        }
+    </style>
+</head>
+<body id="body">
+    <nav th:replace="common/nav::nav"/>
+
+    <main>
+        <div class="container">
+            <div class="card white-text">
+                <div class="card-content black-text">
+                    <h1 style="display: block;" class="card-title center" th:text="${article.title}"/>
+                    <div class="divider" style="margin: 5px 0"></div>
+                    <div class="grey-text" style="font-size: .8rem"
+                         th:text="${article.getCreateAt().toLocaleString()}"/>
+                    <div id="content-editormd" th:utext="${article.content}"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="common/footer::footer"/>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/editormd.min.js}"></script>
+    <script th:src="@{/lib/marked.min.js}"></script>
+    <script th:src="@{/lib/prettify.min.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            editormd.markdownToHTML("content-editormd");
+        })
+    </script>
+</body>
+</html>

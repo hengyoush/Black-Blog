@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="head::head">
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="pageNav(pageInfo,pageNums, prevText, nextText, prefix,suffix)">
+		<ul class="pagination center black">
+			<th:block class="prev" th:if="${pageInfo.hasPrevious()}">
+				<li>
+					<a th:href="@{'/'+${prefix}+'?pageNum='+${pageInfo.previousPageable().getPageNumber()}+${suffix}}"
+					th:text="${prevText}"></a>
+				</li>
+			</th:block>
+
+
+			<th:block th:each="navIndex :${pageNums}">
+			<li th:class="${pageInfo.getNumber()+1==navIndex}?'active':'waves-effect'" ><a
+				th:href="@{'/'+${prefix}+'?pageNum='+${navIndex-1}+${suffix}}" th:text="${navIndex}"></a></li>
+			</th:block>
+
+
+			<th:block th:if="${pageInfo.hasNext()}">
+				<li class="next"><a
+					th:href="@{'/'+${prefix}+'?pageNum='+${pageInfo.nextPageable().getPageNumber()}+${suffix}}"
+					th:text="${nextText}"></a></li>
+			</th:block>
+			<li sec:authorize="${hasRole('ROLE_ADMIN')}"><span  style="font-size: 10px;" th:text="'共'+${pageInfo.getTotalElements()}+'个结果'"></span></li>
+		</ul>
+	</div>
+</body>
+</html>

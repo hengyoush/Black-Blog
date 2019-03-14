@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="row" th:fragment="tabs" style="width: 100%;background-color: black" th:if="${keyword==null}">
+    <div class="col s12">
+        <ul class="tabs" style="background-color: black; color: white" >
+            <th:block th:each="cates : ${categories}">
+                <li class="tab col">
+                    <a th:class="${cates.id}==${cate}?'active':''"
+                       target="_self" th:href="@{'/articles?cate='+${cates.id}}" th:text="${cates.name}"></a>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

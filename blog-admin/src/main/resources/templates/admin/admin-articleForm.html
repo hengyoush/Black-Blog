@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/editor.css}" />
+    <link rel="stylesheet" th:href="@{/css/editormd.css}" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+    <div id="header">
+        <a th:href="@{/}" style="text-decoration: none"><h1>衡友海的Blog</h1></a>
+    </div>
+    <form th:method="POST" th:object="${article}" th:action="@{/admin/article}">
+        <input th:field="*{id}" hidden="hidden">
+        <div class="grid">
+            <h3>文章标题</h3>
+                <label for="title">标题: </label>
+                <input type="text" th:field="*{title}" id="title"/>
+            <br/>
+        </div>
+
+        <div id="layout">
+            <div id="editormd">
+               <textarea style="display:none;" class="form-control"
+                         id="content-editormd-markdown-doc" name="contentMD" th:field="*{contentMD}">
+               </textarea>
+            </div>
+        </div>
+        <div class="grid" th:each="cate : ${activeCategories}">
+            <input th:type="checkbox" name="category" th:value="${cate.id}" checked="checked"/>
+            <span th:text="${cate.name}">cate</span><br/>
+            <br/>
+        </div>
+        <div class="grid" th:each="cate : ${categories}">
+            <input th:type="checkbox" name="category" th:value="${cate.id}" />
+            <span th:text="${cate.name}">cate</span><br/>
+            <br/>
+        </div>
+        <input type="submit" value="提交文章"/>
+        <button type="button" th:if="${article.getId() != null}"
+                onclick="javascript:button_onclick();" th:text="刪除"></button>
+    </form>
+    <div id="footer">
+        com.hengyh
+    </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/editormd.min.js}"></script>
+    <script type="text/javascript">
+        var testEditor;
+        $(function() {
+            testEditor = editormd("editormd", {
+                width: "90%",
+                height: 640,
+                syncScrolling: "single",
+                path: "/lib/",
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/admin/file/upload",
+                //这个配置在simple.html中并没有，但是为了能够提交表单，
+                // 使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
+                saveHTMLToTextarea: true
+                // previewTheme : "dark"
+            });
+        });
+
+
+    </script>
+    <script>
+        function button_onclick(){
+            var choice = confirm('确认要删除该文章吗？');
+            if(!choice){
+                return;
+            }
+            // csrf
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+            // 提交删除请求
+            $.ajax({
+                type: 'POST',
+                url: "/admin/article/" + [[${article.id}]],
+                data: {
+                    "_method" : "DELETE"
+                },
+                dataType: "json",
+                success: function (data) {
+                    window.history.go(-1);  //返回上一页
+                },
+            });
+        }
+    </script>
+</body>
+</html>
