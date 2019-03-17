@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Collections;
 import java.util.Date;
 
 @Profile("!prod")
@@ -19,33 +20,34 @@ public class DevelopmentConfig {
     public CommandLineRunner dataLoader(ArticleRepository articleRepository, CategoryService categoryService,
                                         UserRepository userRepo, PasswordEncoder encoder) { // user repo for ease of testing with a built-in user
         return args -> {
-            Article article = new Article();
-            article.setTitle("title1");
-            article.setCreateAt(new Date());
-            articleRepository.save(article);
-            article = new Article();
-            article.setTitle("title2");
-            article.setCreateAt(new Date());
-            article.setContent("html");
-            article.setContentMD("markdown");
-            articleRepository.save(article);
+//            Category tech = new Category();
+////            tech.setName("technology");
+////            categoryService.save(tech);
+////            Category life = new Category();
+////            life.setName("life");
+////            categoryService.save(life);
+////
+////            Article article = new Article();
+////            article.setTitle("title1");
+////            article.setCreateAt(new Date());
+////            article.setCategory(Collections.singleton(tech));
+////            articleRepository.save(article);
+////            article = new Article();
+////            article.setTitle("title2");
+////            article.setCreateAt(new Date());
+////            article.setContent("html");
+////            article.setContentMD("markdown");
+////            article.setCategory(Collections.singleton(life));
+////            articleRepository.save(article);
+////
+////            for (int i = 0; i < 100 ; i++) {
+////                article = new Article();
+////                article.setTitle("titilebat" + i);
+////                article.setCategory(Collections.singleton(tech));
+////                articleRepository.save(article);
+////            }
 
-            for (int i = 0; i < 100 ; i++) {
-                article = new Article();
-                article.setTitle("titilebat" + i);
-                articleRepository.save(article);
-            }
-
-            userRepo.save(new User("admin", encoder.encode("admin")));
-
-            Category category = new Category();
-            category.setId(1L);
-            category.setName("技术");
-            categoryService.save(category);
-            category = new Category();
-            category.setId(2L);
-            category.setName("生活");
-            categoryService.save(category);
+//            userRepo.save(new User("admin", encoder.encode("admin")));
         };
     }
 

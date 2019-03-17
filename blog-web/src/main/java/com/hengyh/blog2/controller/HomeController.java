@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import static com.hengyh.blog2.service.CategoryService.DEFAULT_CATE_ID;
 import static org.springframework.data.domain.Sort.Order.desc;
 import static org.springframework.data.domain.Sort.by;
 
@@ -61,7 +62,7 @@ public class HomeController {
     public String
     getArticlesPage(@RequestParam(value = "pageNum", defaultValue = "0", required = false) Integer pageNum,
                     @RequestParam(value = "keyword", required = false) String keyword,
-                    @RequestParam(value = "cate", defaultValue = "1") Long cateId,
+                    @RequestParam(value = "cate", defaultValue = DEFAULT_CATE_ID) Long cateId,
                     Model model) {
         Pageable pageable = PageRequest.of(pageNum,
                 holder.getPerPageSize(), by(desc(holder.getArticlesSortBy())));
