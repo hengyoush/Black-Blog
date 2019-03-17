@@ -21,11 +21,9 @@ public class Article implements Serializable {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-//    @Column(columnDefinition = "CLOB")
     private String content;// 文章内容
 
     @Lob
-//    @Column(columnDefinition = "CLOB")
     @Basic(fetch = FetchType.LAZY)
     private String contentMD;// 文章内容 markdown
 
