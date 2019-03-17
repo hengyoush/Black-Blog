@@ -2,6 +2,7 @@ package com.hengyh.blog2;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,11 +20,13 @@ public class Article implements Serializable {
     private String title;// 文章标题
 
     @Lob
-    @Column(columnDefinition = "CLOB")
+    @Basic(fetch = FetchType.LAZY)
+//    @Column(columnDefinition = "CLOB")
     private String content;// 文章内容
 
     @Lob
-    @Column(columnDefinition = "CLOB")
+//    @Column(columnDefinition = "CLOB")
+    @Basic(fetch = FetchType.LAZY)
     private String contentMD;// 文章内容 markdown
 
     @ManyToMany
