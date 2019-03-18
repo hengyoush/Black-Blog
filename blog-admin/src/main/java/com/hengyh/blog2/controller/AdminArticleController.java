@@ -45,7 +45,7 @@ public class AdminArticleController {
             model.addAttribute("keyword", keyword);
         } else
             pageUtils.pageHelper(articleService.showAllArticles(pageable), model);
-        return "/admin/admin-articles";
+        return "admin/admin-articles";
     }
 
     /**
@@ -72,7 +72,7 @@ public class AdminArticleController {
         article.setContentMD("");
         model.addAttribute("article", article);
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "/admin/admin-articleForm";
+        return "admin/admin-articleForm";
     }
 
     /**
@@ -94,7 +94,7 @@ public class AdminArticleController {
         categories.removeAll(article.getCategory());
         model.addAttribute("categories",categories);
 
-        return "/admin/admin-articleForm";
+        return "admin/admin-articleForm";
     }
 
     /**

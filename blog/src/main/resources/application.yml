@@ -4,8 +4,3 @@ spring:
       ddl-auto: update
   profiles:
     active: dev
-  datasource:
-    url: jdbc:mysql://rabbitnode1:3307/blog?useSSL=false&characterEncoding=utf-8
-    password: suyimoqi1117*
-    username: blog
-    driver-class-name: com.mysql.jdbc.Driver

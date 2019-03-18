@@ -16,7 +16,7 @@ public class CategoryController {
     @GetMapping
     public String listAll(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "/admin/admin-category";
+        return "admin/admin-category";
     }
 
     @GetMapping(path = {"/{id}","/new-category"})
@@ -25,7 +25,7 @@ public class CategoryController {
             model.addAttribute("category", new Category());
         else
             model.addAttribute("category", categoryService.getCategoryById(id));
-        return "/admin/admin-categoryForm";
+        return "admin/admin-categoryForm";
     }
 
     @PostMapping
